@@ -6,13 +6,16 @@ public class MineTile : MonoBehaviour
 {
     public Sprite[] emptyMineSprites;
     public Sprite mineSprite;
+    public Vector2Int index;
+    public bool hasMine;
 
     private SpriteRenderer theSpriteRenderer;
-    private bool hasMine;
+    private MineGrid theMineGrid;
 
     private void Awake()
     {
         theSpriteRenderer = GetComponent<SpriteRenderer>();
+        theMineGrid = transform.parent.GetComponent<MineGrid>();
     }
 
     // Start is called before the first frame update
@@ -27,11 +30,31 @@ public class MineTile : MonoBehaviour
         
     }
 
-    void LoadSprite(int index)
+    public void LoadSprite(int index)
     {
-        if (hasMine)
+        theSpriteRenderer.sprite = emptyMineSprites[index];
+    }
+
+    public void OnMouseUp()
+    {
+        int numOfAdjacentRiggedTiles = theMineGrid.GetNumOfAdjacentRiggedTiles(index.x, index.y);
+
+        if (hasMine == true)
         {
-            theSpriteRenderer.sprite = mineSprite;
+            //display all tiles
+            theMineGrid.DisplayAllTiles();
+            //display game over panel
+        }
+        else
+        {
+            if (numOfAdjacentRiggedTiles == 0)
+            {
+                //display all cells with zero adjacent rigged tiles
+            }
+            else
+            {
+                LoadSprite(numOfAdjacentRiggedTiles);
+            }
         }
     }
 }

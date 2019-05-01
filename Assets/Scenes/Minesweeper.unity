@@ -166,6 +166,7 @@ MonoBehaviour:
   size: {x: 10, y: 13}
   mineTilePrefab: {fileID: 3065101236014537967, guid: 871257c7f3d5e424c927be67930b8c2c,
     type: 3}
+  mineProbability: 0.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
